@@ -1,0 +1,12 @@
+snapshot:
+  threads: 32
+  batch-size-rows: 10_000
+  txn-size-rows: 1_000_000
+  bulk-load:
+    enable: true
+    type: FILE
+    #native-load-configs: "ERRORS HANDLE 'memsql_load_error'" #User provided MemSQL LOAD configs. These will be appended to the generated LOAD SQL command.
+  skip-tables-on-failures : false
+  _traceDBTasks: true
+  table-store: COLUMN
+    per-table-config:

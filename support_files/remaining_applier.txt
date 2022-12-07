@@ -1,0 +1,26 @@
+  _delete-using-insert-opt: true
+  #deferred-delete: true
+
+realtime:
+  threads: 8
+  txn-size-rows: 10000
+  batch-size-rows: 1000
+  _oper-queue-size-rows: 20000
+# skip-tables-on-failures : false
+# replay-shard-key-update-as-delete-insert: true
+# retry-failed-txn-idempotently: true
+#   perTableConfig:
+#   - schema: tpch
+#     tables:
+#       CUSTOMER:
+#         skip-upto-cursor: '{"extractorId":0,"timestamp":1599201466000,"log":"mariadb-bin.000200","position":36574666,"logSeqNum":1000,"slaveServerId":1,"v":1}'
+
+# Transactional mode config
+# realtime:
+#   threads: 1
+#   batch-size-rows: 1000
+#   replay-consistency: GLOBAL
+#   txn-group-count: 100
+#   _oper-queue-size-rows: 20000
+#   skip-upto-cursors: ['{"extractorId":0,"replicaSetName":"mongors1","resumeToken":6868517489379115009,"seqNum":3,"v":1,"timestamp":1599201348000}']
+#   retry-failed-txn-idempotently: true

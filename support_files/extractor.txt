@@ -1,0 +1,72 @@
+snapshot:
+  threads: 32
+  fetch-size-rows: 10_000
+
+  min-job-size-rows: 1_000_000
+  max-jobs-per-chunk: 32
+  verifyRowCount: false
+  _traceDBTasks: true
+
+#  split-method: RANGE  # Allowed values are RANGE, MODULO
+#  extraction-method: QUERY # Allowed values are QUERY, TPT
+#  tpt-num-files-per-job: 16
+#  native-extract-options:
+#    charset: "ASCII"  #Allowed values are ASCII, UTF8
+#    compression-type: "GZIP" #Allowed values are GZIP and NONE
+
+  per-table-config:
+  - schema: tpch
+    tables:
+#     testTable
+#       split-key: split-key-column
+      part:
+        split-key: partkey
+      partsupp:
+        split-key: partkey
+      supplier:
+      orders:
+        split-key: orderkey
+#        split-method: RANGE      #Table level overridable config, allowed values : RANGE, MODULO
+#        extraction-method: TPT   # Allowed values are QUERY, TPT
+#        tpt-num-files-per-job: 16
+#        extraction-priority: 2  #Higher value is higher priority. Both positive and negative values are allowed. Default priority is 0 if unspecified.
+#        split-hints:
+#          row-count-estimate: 15000
+#          split-key-min-value: 1
+#          split-key-max-value: 60_000
+#        native-extract-options:
+#          charset: "ASCII"  #Allowed values are ASCII, UTF8
+#          column-size-map:  #User specified column size/length to be used while exporting with TPT
+#            "COL1": 2
+#            "COL2": 4
+#            "COL3": 3
+#          compression-type: "GZIP"
+
+      parts_view:
+        row-identifier-key: [partkey]
+        split-key: last_update_time
+      partsupp_macro:
+        update-key: [partkey]
+        split-key: last_update_time
+
+
+delta-snapshot:
+  threads: 32
+  fetch-size-rows: 10_000
+  min-job-size-rows: 1_000_000
+  max-jobs-per-chunk: 32
+  _max-delete-jobs-per-chunk: 32
+  split-method: RANGE  # Allowed values are RANGE, MODULO
+#  extraction-method: QUERY # Allowed values are QUERY, TPT
+#  tpt-num-files-per-job: 16
+#  native-extract-options:
+#    charset: "ASCII"  #Allowed values are ASCII, UTF8
+#    compression-type: "GZIP"
+  split-key: last_update_time
+  delta-snapshot-keys: [DeviceCustomerGlobalID]
+  delta-snapshot-interval: 10
+  delta-snapshot-delete-interval: 10
+  _traceDBTasks: true
+  replicate-deletes: false
+  per-table-config:
+  
